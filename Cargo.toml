@@ -5,3 +5,4 @@ authors = ["Kaoru Hagihara <hagiharak@ist.hokudai.ac.jp>"]
 edition = "2018"
 
 [dependencies]
+linked_hash_set = "0.1.3"

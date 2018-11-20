@@ -1,3 +1,5 @@
+extern crate linked_hash_set;
+
 mod actor;
 mod ball;
 mod costume;

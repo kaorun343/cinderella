@@ -1,7 +1,8 @@
 use crate::actor::Human;
+use linked_hash_set::LinkedHashSet;
 
 pub struct Ball {
-    entries: Vec<Human>,
+    entries: LinkedHashSet<Human>,
     /// 時刻
     pub clock: u32,
     finished_at: u32,
@@ -10,7 +11,7 @@ pub struct Ball {
 impl Ball {
     pub fn new(started_at: u32, finished_at: u32) -> Self {
         Ball {
-            entries: Vec::new(),
+            entries: LinkedHashSet::new(),
             clock: started_at,
             finished_at,
         }
@@ -41,7 +42,7 @@ impl Ball {
     pub fn entry(&mut self, human: &Human) {
         match human.cos {
             Some(_) => {
-                self.entries.push(human.clone());
+                self.entries.insert(human.clone());
                 println!("{} は舞踏会に参加します。", human.name);
             }
             None => {
@@ -52,7 +53,7 @@ impl Ball {
     }
 
     pub fn exit(&mut self, human: &Human) {
-        self.entries.retain(|entry| entry != human);
+        self.entries.remove(human);
         println!(
             "{} は舞踏会から抜け出し、帰宅した。",
             human.name
@@ -73,6 +74,6 @@ mod test {
         human.set_costume(Costume::Dress);
         ball.entry(&human);
         ball.exit(&human);
-        assert_eq!(ball.entries, vec![]);
+        assert_eq!(ball.entries, LinkedHashSet::new());
     }
 }
