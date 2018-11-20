@@ -52,10 +52,27 @@ impl Ball {
     }
 
     pub fn exit(&mut self, human: &Human) {
-        self.entries.retain(|entry| entry == human);
+        self.entries.retain(|entry| entry != human);
         println!(
             "{} は舞踏会から抜け出し、帰宅した。",
             human.name
         );
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use crate::actor::Gender;
+    use crate::costume::Costume;
+
+    #[test]
+    fn test_exit() {
+        let mut ball = Ball::new(0, 24);
+        let mut human = Human::new("", 0, Gender::Man);
+        human.set_costume(Costume::Dress);
+        ball.entry(&human);
+        ball.exit(&human);
+        assert_eq!(ball.entries, vec![]);
     }
 }
