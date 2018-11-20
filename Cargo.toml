@@ -1,0 +1,7 @@
+[package]
+name = "cinderella"
+version = "0.1.0"
+authors = ["Kaoru Hagihara <hagiharak@ist.hokudai.ac.jp>"]
+edition = "2018"
+
+[dependencies]
